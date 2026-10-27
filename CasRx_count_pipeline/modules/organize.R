@@ -8,15 +8,13 @@ args = commandArgs(trailingOnly=T)
 counts_dir <- paste0(out_dir, "/counts")
 mapped_dir <- paste0(out_dir, "/mapped")
 
-
-
 sample_table <- fread(sample_table_file)
 combinations_table <- fread(combinations_table_file)
 #merge different count tables together in one table
 #get path of count tables
 count_tables <- lapply(sample_table[,1], function(x){paste0(counts_dir, "/", x, ".txt")}) %>% unlist() %>% as.list()
 #generate the initial table with combinations but no counts
-full_table <- fread(combinations_table_file) %>% separate(combinations, into = c("reference_1", "reference_2"), sep = "~")
+full_table <- fread(combinations_table_file) %>% separate(combinations, into = c("reference_1", "reference_2"), sep = "~") %>% as.data.table()
 #add each count as a column of the full table
 for (count_table_file in count_tables) {
    count_table <- fread(count_table_file) 

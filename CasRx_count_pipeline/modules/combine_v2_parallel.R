@@ -90,7 +90,7 @@ column_names_R2 <- c("query", "flag", "reference_R2", "pos", "mapq", "cigar", "r
    #arrange off-maps
    off_map <- off_map[, .(count = .N), by = combinations]
    off_map <- off_map %>% separate(combinations, into = c("reference_1", "reference_2"), sep = "~")
-   off_map <- off_map[reference_1 != "NA" & reference_2 != "NA"]
+   off_map <- off_map %>% filter(reference_1 != "NA" & reference_2 != "NA")
    output_file_off <- paste0(counts_dir, "/", sample_table[row, 1], "_off-map.txt")
    write_tsv(off_map, output_file_off)
 }

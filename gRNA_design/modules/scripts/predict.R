@@ -9,6 +9,7 @@ prediction <- function(arg1, arg2, arg3, arg4, arg5, directory, prediction_dir){
   #dir.create(arg4)
   #setwd(arg4)
   dir <- directory
+  #dir <- tempdir()
   #dir <- paste(directory, arg4, sep = "/")
   
   
@@ -20,7 +21,7 @@ prediction <- function(arg1, arg2, arg3, arg4, arg5, directory, prediction_dir){
   if (!dir.exists(paths = libpath)) {
     dir.create(path = libpath, recursive = TRUE)
   }
-  .libPaths(new=libpath)
+  #.libPaths(new=libpath)
   check.packages <- function(pkg){
     for (p in pkg) {
       if (!requireNamespace(p, quietly = TRUE)) {
@@ -94,8 +95,10 @@ prediction <- function(arg1, arg2, arg3, arg4, arg5, directory, prediction_dir){
   HomopolymerLength.T = 4
   HomopolymerLength.nonT = 5
   DirectRepeat = "aacccctaccaactggtcggggtttgaaac" # Used for crRNA MFE calculation using RNAfold Vienna package 2.4.10
-  RNAfold = "/usr/local/bin/RNAfold" # Change if different
-  RNAplfold = "/usr/local/bin/RNAplfold" # Change if different
+  #RNAfold = "/usr/local/bin/RNAfold" # Change if different
+  RNAfold = Sys.which("RNAfold")
+  #RNAplfold = "/usr/local/bin/RNAplfold" # Change if different
+  RNAplfold = Sys.which("RNAplfold")
   RNAhyb = paste0(dir,"scripts/RNAhyb.sh")
   
   # RNAhybrid 2.1.2 has to be installed and added to your PATH. Here I am assuming /usr/local/bin/RNAhybrid
@@ -168,6 +171,11 @@ prediction <- function(arg1, arg2, arg3, arg4, arg5, directory, prediction_dir){
       }
       
     }
+    #else{
+    #}
+    #else{
+    #else{
+    #}
     else{
       if ( length(GC.index) == 0 & length(ConsecutiveBases.index) > 0){
         return("GC out of range")
@@ -794,12 +802,10 @@ prediction <- function(arg1, arg2, arg3, arg4, arg5, directory, prediction_dir){
   Min=quantile(fullset$normCS, na.rm = T , probs = 0.05)
   Max=quantile(fullset$normCS, na.rm = T , probs = 0.95)
   fullset$standardizedGuideScores = sapply( fullset$normCS , FUN = standardizeScores , MIN = Min, MAX = Max)
-  
   # Predict guide scores
   cat( paste0( "Guide scoring started on " , date() ,"\n"))
   GuideScores = PredictGuideScores(x = Guide.df, FIELDS=fields[-1], Fit=Model, Mean = ModelInputMeans, SD = ModelInputSDs)
-  
-  # Add guide Scores
+  # Add Guide scores 
   Guide.df = AddScores(df = Guide.df , SCORES = GuideScores)
   
   

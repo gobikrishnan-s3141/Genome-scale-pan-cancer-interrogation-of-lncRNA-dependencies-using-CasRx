@@ -1,6 +1,6 @@
 #!/bin/bash
 
-path_to_gRNA_design="./" #change this to the path your saved the pipeline in
+path_to_gRNA_design="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" #change this to the path your saved the pipeline in
 scripts_dir="${path_to_gRNA_design}/modules"
 input_file="${path_to_gRNA_design}/test_run/data/exons_for_prediction.csv"
 organism="human"

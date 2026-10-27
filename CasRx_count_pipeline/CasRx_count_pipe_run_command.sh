@@ -1,7 +1,7 @@
 #!/bin/bash
 
-path_to_pipeline="./" #change this to the path your saving the pipeline in
-path_to_trimmomatic="" # Insert here path to trimmomatic-0.38.jar
+path_to_pipeline="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" #change this to the path your saving the pipeline in
+path_to_trimmomatic="${TRIMMOMATIC_JAR:-$(dirname "$(readlink -f "$(command -v trimmomatic)")")/trimmomatic.jar}" # Insert here path to trimmomatic-0.38.jar
 
 bash ${path_to_pipeline}/CasRx_count_pipe.sh \
     --path_to_pipeline ${path_to_pipeline} \

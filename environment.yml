@@ -9,3 +9,6 @@ dependencies:
   - bowtie2=2.3.5.1
   - trimmomatic=0.38
   - samtools=1.18
+  - viennarna=2.4.11
+  - rnahybrid=2.1.2
+
