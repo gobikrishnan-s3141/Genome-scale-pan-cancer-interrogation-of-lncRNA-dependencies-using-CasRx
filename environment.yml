@@ -1,0 +1,11 @@
+name: Genome-scale-pan-cancer-interrogation-of-lncRNA-dependencies-using-CasRx
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python >=3.6
+  - mageck=0.5.9.4
+  - bowtie=1.2.2
+  - bowtie2=2.3.5.1
+  - trimmomatic=0.38
+  - samtools=1.18
